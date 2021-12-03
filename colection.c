@@ -1,5 +1,3 @@
-// #ifndef _COLECTION_H
-// #define _COLECTION_H
 #include "colection.h"
 #include <stdlib.h>
 #include <stdbool.h>
@@ -70,6 +68,7 @@ void *colGetFirst(Colection *c)
             c->cur = 0;
             return c->item[c->cur];
         }
+        return NULL;
     }
     return NULL;
 }
@@ -87,17 +86,73 @@ void *colGetNext(Colection *c)
     return NULL;
 }
 
+void *colQuery(Colection *c, void *key, int (*cmp)(void *, void *))
+{
+    void *data;
+    int i, stat;
+    if (c != NULL)
+    {
+        if (c->size > 0) //se tiver vazio nem procura
+        {
+            i = 0;
+            stat = cmp(key, c->item[i]); //retorna true
+            //caso key == ao item i da coleção
 
+            while (i < c->size && stat != true)
+            {
+                //incrementa até ser true, porem se n for
+                //passa direto e retorna null
+                i++;
+                stat = cmp(key, c->item[i]);
+            }
+            if (stat == true)
+            {
+                data = c->item[i];
+                return data; //retorn se encontrar o item
+            }
+        }
+    }
+    return NULL;
+}
 
-// void print(const Colection *c){
-//     if(c!=NULL){
-//         a = (Aluno *)colGetFirst(col); //retorno primeira coisa de col, so que reforço aqui// desencapo essa
-//         while (a != NULL)
-//         {
-//             printf("%d %d\n", a->matr, a->nota);
-//             a = (Aluno *)colGetNext(col);
-//         }
-//     }
-// }
+void *colRemove(Colection *c, void *key, int (*cmp)(void *, void *))
+{
+    int i, j, stat;
+    void *data;
+    if (c != NULL)
+    {
+        if (c->size > 0)
+        {
+            i = 0;
+            stat = cmp(key, c->item[i]);
+            while (i < c->size && stat != true)
+            {
+                i++;
+                stat = cmp(key, c->item[i]);
+            }
+            if (stat == true)
+            {
+                data = c->item[i];
+                for (j = i; j < c->size; j++)
+                {
+                    c->item[j] = c->item[j + 1];
+                }
+                c->size--;
+                return data;
+            }
+        }
+        return NULL;
+    }
+}
 
-// #endif
+void colClear(Colection *c)
+{
+    if (c != NULL)
+    {
+        if (c->size > 0)
+        {
+            free(c->item);
+            c->size = 0;
+        }
+    }
+}
