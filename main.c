@@ -53,7 +53,6 @@ int main(void)
             printf("Tamanho da colecao: ");
             scanf("%d", &tam);
             col = colCreate(tam); // col = e2004
-            Colection *col2 = colCreate(11); // 
             system("PAUSE");
             break;
         case '2':
