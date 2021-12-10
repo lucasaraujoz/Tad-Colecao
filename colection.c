@@ -144,7 +144,7 @@ void *colRemove(Colection *c, void *key, int (*cmp)(void *, void *))
     }
 }
 
-void colClear(Colection *c)
+int colClear(Colection *c)
 {
     if (c != NULL)
     {
@@ -152,6 +152,8 @@ void colClear(Colection *c)
         {
             free(c->item);
             c->size = 0;
+            return true;
         }
     }
+    return NULL;
 }
