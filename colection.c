@@ -51,7 +51,7 @@ int colInsert(Colection *c, void *item)
     {
         if (c->size < c->capacity)
         {
-            c->item[c->size] = item;
+            c->item[c->size] = item; //item[0] = item, item[1] = item
             c->size++;
             return true;
         }
@@ -97,7 +97,6 @@ void *colQuery(Colection *c, void *key, int (*cmp)(void *, void *))
             i = 0;
             stat = cmp(key, c->item[i]); //retorna true
             //caso key == ao item i da coleção
-
             while (i < c->size && stat != true)
             {
                 //incrementa até ser true, porem se n for

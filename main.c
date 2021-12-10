@@ -52,7 +52,8 @@ int main(void)
             printf("opc 1\n");
             printf("Tamanho da colecao: ");
             scanf("%d", &tam);
-            col = colCreate(tam);
+            col = colCreate(tam); // col = e2004
+            Colection *col2 = colCreate(11); // 
             system("PAUSE");
             break;
         case '2':
@@ -69,7 +70,7 @@ int main(void)
                         printf("Nome/Matricula/Nota: ");
                         scanf("%s %d %f", (a->name), &(a->matr), &(a->nota));
                         colInsert(col, (void *)a); //disfarço Aluno como void pra collection
-                    }
+                    }   
                 }
             }
             system("PAUSE");
@@ -99,9 +100,12 @@ int main(void)
             a = (Aluno *)colQuery(col, (void *)&key, cmpmatr);
             if (a != NULL)
             {
-                printf("%d\n", a->matr);
-                printf("%.3f\n", a->nota);
-                printf("%s\n", a->name);
+                printf("Matricula %d Encontrada:\n", a->matr);
+                printf("Nome.....: %s\n", a->name);
+                printf("Nota.....: %.3f", a->nota);
+            }
+            else{
+                printf("Matricula nao encontrada");
             }
             system("PAUSE");
             break;
@@ -125,6 +129,7 @@ int main(void)
             break;
         }
     }
+    colDestroy(col);
     printf("Fim do programa");
     return 0;
 }
