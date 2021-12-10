@@ -19,7 +19,7 @@ void menu()
     printf("4 - Buscar na colection\n");
     printf("5 - Remover da colection\n");
     printf("6 - Limpar a colection\n");
-    printf("7 - Sair");
+    printf("7 - Sair\n");
 }
 
 int cmpmatr(void *a, void *b) //(key, elementoColeção)
